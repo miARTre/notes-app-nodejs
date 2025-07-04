@@ -9,16 +9,16 @@ const forecast = (latitude, longitude, callback) => {
 
   const url = `${baseUrl}?access_key=${apiKey}&query=${coordinates}`;
 
-  request({ url: url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body } = {}) => {
     if (error) {
       callback("Unable to connect to weather service!");
-    } else if (response.body.error) {
+    } else if (body.error) {
       callback("Unable to find location!");
     } else {
       callback(undefined, {
-        description: response.body.current.weather_descriptions,
-        temperature: response.body.current.temperature,
-        feelslike: response.body.current.feelslike,
+        description: body.current.weather_descriptions,
+        temperature: body.current.temperature,
+        feelslike: body.current.feelslike,
       });
     }
   });

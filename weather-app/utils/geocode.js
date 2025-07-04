@@ -10,16 +10,16 @@ const geoCode = (address, callback) => {
     address
   )}.json?access_token=${token}&limit=1`;
 
-  request({ url: url, json: true }, (error, res) => {
+  request({ url, json: true }, (error, {body} = {}) => {
     if (error) {
       callback("Unable to connect to location service!");
-    } else if (res.body.features.length === 0) {
+    } else if (body.features.length === 0) {
       callback("Unable to find location! Try another search");
     } else {
       callback(undefined, {
-        location: res.body.features[0].place_name,
-        longitude: res.body.features[0].center[0],
-        latitude: res.body.features[0].center[1],
+        location: body.features[0].place_name,
+        longitude: body.features[0].center[0],
+        latitude: body.features[0].center[1],
       });
     }
   });
