@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const hbs = require("hbs");
 const { title } = require("process");
 
 // console.log(__dirname)
@@ -7,13 +8,19 @@ const { title } = require("process");
 // console.log(__filename)
 
 const app = express();
-
-const publicDirectoryPath = path.join(__dirname, "../public");
-
 const PORT = 3000;
 
-app.set("view engine", "hbs");
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, "../public");
+const viewsPath = path.join(__dirname, "../templates/views");
+const paritalsPath = path.join(__dirname, "../templates/partials");
 
+// Setup handlebars engine and views location
+app.set("view engine", "hbs");
+app.set("views", viewsPath);
+hbs.registerPartials(paritalsPath);
+
+// Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get("", (req, res) => {
@@ -33,6 +40,8 @@ app.get("/about", (req, res) => {
 app.get("/help", (req, res) => {
   res.render("help", {
     message: "This is message for help",
+    title: "Help",
+    name: "miARTre",
   });
 });
 
@@ -67,6 +76,30 @@ app.get("/weather", (req, res) => {
   res.send({
     forecast: "It's sunny",
     location: "Sarajevo",
+  });
+});
+
+// app.get(/^\/help\/.*/, (req, res) => {
+//   res.send('Help article not found');
+// });
+
+app.get(/^\/help\/.*/, (req, res) => {
+  res.render("404", {
+    errorMessage: "Help article not found",
+    title: "404",
+    name: "miARTre",
+  });
+});
+
+// app.get(/.*/, (req, res) => {
+//   res.send("My 404 Page");
+// });
+
+app.get(/.*/, (req, res) => {
+  res.render("404", {
+    errorMessage: "Page not found",
+    title: "404",
+    name: "miARTre",
   });
 });
 
