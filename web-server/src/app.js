@@ -13,12 +13,13 @@ const PORT = 3000;
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, "../public");
 const viewsPath = path.join(__dirname, "../templates/views");
-const paritalsPath = path.join(__dirname, "../templates/partials");
+const partialsPath = path.join(__dirname, "../templates/partials")
+
 
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
 app.set("views", viewsPath);
-hbs.registerPartials(paritalsPath);
+hbs.registerPartials(partialsPath);
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
