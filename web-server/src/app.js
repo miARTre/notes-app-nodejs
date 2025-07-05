@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const { title } = require("process");
 
 // console.log(__dirname)
 // console.log(path.join(__dirname, '../public/index.html'))
@@ -16,8 +17,28 @@ app.set("view engine", "hbs");
 app.use(express.static(publicDirectoryPath));
 
 app.get("", (req, res) => {
-  res.send("<h1>Weather</h1>");
+  res.render("index", {
+    title: "Weather",
+    name: "miARTre",
+  });
 });
+
+app.get("/about", (req, res) => {
+  res.render("about", {
+    title: "About",
+    name: "miARTre",
+  });
+});
+
+app.get("/help", (req, res) => {
+  res.render("help", {
+    message: "This is message for help",
+  });
+});
+
+// app.get("", (req, res) => {
+//   res.send("<h1>Weather</h1>");
+// });
 
 // app.get("/help", (req, res) => {
 //   //   res.send({
