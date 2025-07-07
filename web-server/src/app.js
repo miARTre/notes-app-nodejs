@@ -10,7 +10,7 @@ const { forecast } = require("./utils/forecast");
 // console.log(__filename)
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, "../public");
