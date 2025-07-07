@@ -1,4 +1,5 @@
 /weather-app/node_modules
 /web-server/node_modules
 /weather-app/.env
+/web-server/.env
 /notes-app/node_modules
