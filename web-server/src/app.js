@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
-const { title } = require("process");
+const { error } = require("console");
 
 // console.log(__dirname)
 // console.log(path.join(__dirname, '../public/index.html'))
@@ -13,8 +13,7 @@ const PORT = 3000;
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, "../public");
 const viewsPath = path.join(__dirname, "../templates/views");
-const partialsPath = path.join(__dirname, "../templates/partials")
-
+const partialsPath = path.join(__dirname, "../templates/partials");
 
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
@@ -74,9 +73,28 @@ app.get("/help", (req, res) => {
 
 app.get("/weather", (req, res) => {
   //   res.send("Weather Page");
+  if (!req.query.address) {
+    return res.send({
+      error: "You must provide an address!",
+    });
+  }
+
   res.send({
     forecast: "It's sunny",
     location: "Sarajevo",
+    address: req.query.address,
+  });
+});
+
+app.get("/products", (req, res) => {
+  if (!req.query.search) {
+    return res.send({
+      error: "You must provide a search term",
+    });
+  }
+  // console.log(req.query.search);
+  res.send({
+    products: [],
   });
 });
 
