@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+require("dotenv").config();
 const hbs = require("hbs");
 const { geoCode } = require("./utils/geocode");
 const { forecast } = require("./utils/forecast");

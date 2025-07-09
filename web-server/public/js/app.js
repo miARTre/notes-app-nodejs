@@ -46,24 +46,23 @@ weatherForm.addEventListener("submit", (e) => {
   messageOne.textContent = "Loading...";
   messageTwo.textContent = "";
 
-  fetch("/weather?address=" + location).then(
-    (response) => {
-      response.json().then((data) => {
-        if (data.error) {
-          // console.log(data.error);
-          messageOne.textContent = data.error;
-        } else {
-          messageOne.textContent = data.location;
-          const description = data.forecast.description;
-          const temperature = data.forecast.temperature;
-          const feelslike = data.forecast.feelslike;
-          messageTwo.textContent = `${description[0]}. It is currently ${temperature}°C. Feels like ${feelslike}°C.`;
-          // console.log(data.location);
-          // console.log(data.forecast);
-        }
-      });
-    }
-  );
+  fetch("/weather?address=" + location).then((response) => {
+    response.json().then((data) => {
+      if (data.error) {
+        // console.log(data.error);
+        messageOne.textContent = data.error;
+      } else {
+        messageOne.textContent = data.location;
+        const description = data.forecast.description;
+        const temperature = data.forecast.temperature;
+        const feelslike = data.forecast.feelslike;
+        const humidity = data.forecast.humidity;
+        messageTwo.textContent = `${description}. It is currently ${temperature} degrees out. It feels like ${feelslike} degrees out. The humidity is ${humidity} %.`;
+        // console.log(data.location);
+        // console.log(data.forecast);
+      }
+    });
+  });
 
   // console.log(location);
   // console.log("testing");
